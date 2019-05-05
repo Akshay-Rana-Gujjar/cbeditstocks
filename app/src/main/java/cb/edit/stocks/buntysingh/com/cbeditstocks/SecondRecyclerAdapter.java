@@ -1,6 +1,7 @@
 package cb.edit.stocks.buntysingh.com.cbeditstocks;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,6 +42,25 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
+//        viewHolder.imageView.setImageResource();
+        final int position = i;
+        Picasso.get().load(arrayList.get(i).getImageURL()).placeholder(R.drawable.placeholder).resize(200, 200)
+                .centerCrop().into(viewHolder.imageView);
+
+
+        viewHolder.textView.setText(arrayList.get(i).getImageCategory());
+
+        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context, ThirdActivity.class);
+                intent.putExtra("category", arrayList.get(position).getImageCategory());
+
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -51,6 +73,7 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
 
         ImageView imageView;
         TextView textView;
+        CardView cardView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -58,6 +81,7 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
 
             imageView = itemView.findViewById(R.id.ivImage);
             textView = itemView.findViewById(R.id.tvTitle);
+            cardView = itemView.findViewById(R.id.cardview);
 
         }
     }
