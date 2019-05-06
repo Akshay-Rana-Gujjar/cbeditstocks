@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -74,7 +75,7 @@ public class ForthActivity extends AppCompatActivity {
 
                             imageURL = SERVER_IP+response.getJSONObject(0).getString("image_url");
                             Picasso.get()
-                                .load(imageURL)
+                                .load(imageURL).fit().centerCrop()
                                 .placeholder(R.drawable.placeholder)
                                 .into(imageView);
 
@@ -97,10 +98,10 @@ public class ForthActivity extends AppCompatActivity {
     }
 
     public void downloadImage(View view) {
-        verifyPermissions();
 
-        String photoFileName = imageURL.substring(imageURL.lastIndexOf('/') + 1);
-
+        if(!verifyPermissions()){
+            return;
+        }
 
 
         File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+getString(R.string.app_name)+"/");
@@ -117,11 +118,11 @@ public class ForthActivity extends AppCompatActivity {
 //        imageDownload(this, imageURL);
         Toast.makeText(this, dir+"", Toast.LENGTH_SHORT).show();
 
-        startDownload(imageURL , foldername, photoFileName);
+        startDownload(imageURL , foldername);
 
     }
 
-    public void verifyPermissions()
+    public Boolean verifyPermissions()
     {
 
         // This will return the current Status
@@ -133,74 +134,50 @@ public class ForthActivity extends AppCompatActivity {
             String[] STORAGE_PERMISSIONS = { Manifest.permission.WRITE_EXTERNAL_STORAGE};
             // If permission not granted then ask for permission real time.
             ActivityCompat.requestPermissions(this,STORAGE_PERMISSIONS,1);
+            return false;
         }
-    }
 
-    public static void imageDownload(Context ctx, String url){
-        Picasso.get()
-                .load(url)
-                .into(getTarget(url, ctx.getString(R.string.app_name)));
-    }
+        return true;
 
-    //target to save
-    private static Target getTarget(final String url, final String appName){
-        Target target = new Target(){
-
-            @Override
-            public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
-                new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        String photoFileName = url.substring(url.lastIndexOf('/') + 1);
-
-                        String dir = Environment.getExternalStorageDirectory().getPath() + "/"+appName+"/";
-
-
-
-                        File file = new File(dir + photoFileName);
-                        try {
-
-                            new File(dir).mkdir();
-
-                            FileOutputStream ostream = new FileOutputStream(file);
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
-                            ostream.flush();
-                            ostream.close();
-                        } catch (IOException e) {
-                            Log.e("IOException", e.getLocalizedMessage());
-                        }
-                    }
-                }).start();
-
-            }
-
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-        };
-        return target;
     }
 
 
-    void startDownload(String downloadPath, String folderName, String fileName) {
+
+    void startDownload(String downloadPath, String folderName) {
+        String photoFileName = downloadPath.substring(downloadPath.lastIndexOf('/') + 1);
         Uri uri = Uri.parse(downloadPath); // Path where you want to download file.
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);  // Tell on which network you want to download file.
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);  // This will show notification on top when downloading the file.
         request.setTitle("Downloading a file"); // Title for notification.
         request.setVisibleInDownloadsUi(true);
-        request.setDestinationInExternalPublicDir(folderName, fileName);  // Storage directory path
+        request.setDestinationInExternalPublicDir(folderName, photoFileName);  // Storage directory path
         ((DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE)).enqueue(request); // This will start downloading
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! do the
+                    // calendar task you need to do.
 
 
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                    Toast.makeText(this, "Please grant storage permission to download images.", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
+        }
+    }
 }
