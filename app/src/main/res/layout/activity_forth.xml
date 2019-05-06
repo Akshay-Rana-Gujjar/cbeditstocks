@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ForthActivity"
+    android:scrollbars="horizontal"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/largeImage"
+        android:src="@drawable/placeholder"
+        android:scaleType="fitStart"
+        android:adjustViewBounds="true"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:baselineAligned="false"
+
+        >
+
+
+        <LinearLayout
+            android:contentDescription="Like container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:background="@drawable/border_background"
+            android:layout_marginRight="7dp"
+
+
+            >
+            <com.like.LikeButton
+                app:icon_type="heart"
+                app:icon_size="25dp"
+                android:id="@+id/star_button"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+
+                android:layout_margin="0dp"
+
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Likes"
+                android:textSize="20dp"
+                android:id="@+id/likeTextVew"
+                android:layout_gravity="center"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+
+            android:gravity="center"
+            android:background="@drawable/border_background"
+            android:layout_marginLeft="7dp"
+            android:paddingVertical="5dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12K Downloads"
+                android:textSize="20dp"
+                android:id="@+id/downloadTextView"
+                />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp"
+
+        android:background="#2d8a57"
+        android:layout_margin="10dp"
+        >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableLeft="@drawable/ic_save_black_24dp"
+        android:text="Free Download"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/white"
+        android:paddingHorizontal="12dp"
+        android:onClick="downloadImage"
+
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:background="@drawable/border_background"
+        android:padding="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Photo Information"
+            android:textColor="#5952d1"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:text="Below we have listed some special Independence day background which looks great with your photos you can use this background with your photos and show your cool photos to friends and family and you can thank us."
+            />
+
+
+
+    </LinearLayout>
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:layout_margin="10dp"
+        android:background="#a42a2a"
+        app:cardBackgroundColor="#a42a2a"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp"
+
+
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="similar images"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:padding="10dp"
+            android:paddingStart="35dp"
+            android:paddingEnd="35dp"
+            android:textColor="@android:color/white"
+            />
+    </android.support.v7.widget.CardView>
+
+
+
+
+</LinearLayout>
+
+</ScrollView>
