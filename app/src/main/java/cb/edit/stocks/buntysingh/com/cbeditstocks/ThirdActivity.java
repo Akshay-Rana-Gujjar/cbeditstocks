@@ -91,7 +91,7 @@ public class ThirdActivity extends AppCompatActivity {
 
     }
 
-    public class ThirdActivityData{
+    public static class ThirdActivityData{
 
         String imageURL, imageId;
 

@@ -34,12 +34,15 @@
                 android:id="@+id/thirdViewFullButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/thirdCardImage"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="140dp"
-                android:layout_marginTop="353dp"
-                android:layout_marginEnd="132dp"
+                android:layout_marginStart="134dp"
+                android:layout_marginEnd="138dp"
+                android:layout_marginBottom="9dp"
+                android:textSize="10dp"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"
                 android:text="View Full Image" />
 
         </RelativeLayout>
