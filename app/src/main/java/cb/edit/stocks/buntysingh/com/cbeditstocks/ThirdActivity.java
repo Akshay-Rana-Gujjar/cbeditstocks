@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -15,7 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static cb.edit.stocks.buntysingh.com.cbeditstocks.SecondActivity.SERVER_IP;
 
@@ -47,8 +45,6 @@ public class ThirdActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         // do anything with response
-
-                        Toast.makeText(ThirdActivity.this, ""+response.length(), Toast.LENGTH_SHORT).show();
 
                         ArrayList<ThirdActivityData> list = new ArrayList<>();
 

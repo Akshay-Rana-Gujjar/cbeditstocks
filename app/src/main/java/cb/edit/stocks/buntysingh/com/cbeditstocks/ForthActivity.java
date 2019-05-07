@@ -1,49 +1,53 @@
 package cb.edit.stocks.buntysingh.com.cbeditstocks;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.DownloadListener;
-import com.androidnetworking.interfaces.DownloadProgressListener;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static cb.edit.stocks.buntysingh.com.cbeditstocks.SecondActivity.SERVER_IP;
 
@@ -51,7 +55,7 @@ public class ForthActivity extends AppCompatActivity {
 
     ImageView imageView;
 
-    TextView likes, downloads;
+    TextView likes, downloads, downloadStatus;
 
     String imageURL;
     String image_id;
@@ -65,6 +69,12 @@ public class ForthActivity extends AppCompatActivity {
     BroadcastReceiver onDownloadComplete;
 
     RecyclerView recyclerView;
+
+    Button cancelBtn, setAsWallpaperBtn;
+    ImageView shareBtn;
+    LinearLayout setAsAndShareLayout;
+    String fileName, dirPath;
+    Dialog dialog;
 
 
 
@@ -217,13 +227,17 @@ public class ForthActivity extends AppCompatActivity {
                 //Checking if the received broadcast is for our enqueued download by matching download id
                 if (downloadId == id) {
 
-                    Toast.makeText(ForthActivity.this, "Download Completed", Toast.LENGTH_SHORT).show();
                     increaseDecreaseUtility("/download_count.php", image_id, new ApiCallback() {
                         @Override
                         public void success() {
 
                             downloadCount = (Integer.parseInt(downloadCount) + 1)+"";
                             downloads.setText(String.format("%s Downloads", downloadCount));
+                            cancelBtn.setVisibility(View.GONE);
+                            setAsAndShareLayout.setVisibility(View.VISIBLE);
+                            dialog.setCancelable(true);
+                            downloadStatus.setText("Completed!");
+
 
                         }
 
@@ -254,7 +268,7 @@ public class ForthActivity extends AppCompatActivity {
             return;
         }
 
-        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+getString(R.string.app_name)+"/";
+        dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+getString(R.string.app_name)+"/";
 
         File dir = new File(dirPath);
 
@@ -268,11 +282,11 @@ public class ForthActivity extends AppCompatActivity {
         String foldername = "/"+getString(R.string.app_name);
 
 //        imageDownload(this, imageURL);
-        Toast.makeText(this, dir+"", Toast.LENGTH_SHORT).show();
+
 
         startDownload(imageURL , foldername);
 
-//        String fileName = imageURL.substring(imageURL.lastIndexOf('/') + 1);
+        fileName = imageURL.substring(imageURL.lastIndexOf('/') + 1);
 
 
 //        AndroidNetworking.download(imageURL,dirPath,fileName)
@@ -331,15 +345,138 @@ public class ForthActivity extends AppCompatActivity {
 
 
     void startDownload(String downloadPath, String folderName) {
+
+        dialog = new Dialog(this,R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+        dialog.setContentView(R.layout.dailog);
+
+        final ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
+        dialog.setCancelable(false);
+        // Set dialog title
+        dialog.setTitle("Downloading...");
+
+        cancelBtn = dialog.findViewById(R.id.cancelDownload);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((DownloadManager) Objects.requireNonNull(getSystemService(Context.DOWNLOAD_SERVICE))).remove(downloadId);
+                dialog.cancel();
+            }
+        });
+
+        downloadStatus = dialog.findViewById(R.id.downloadStatus);
+
+        setAsWallpaperBtn = dialog.findViewById(R.id.setAsWallpaper);
+
+        setAsWallpaperBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Bitmap result= null;
+//                try {
+//                    result = Picasso.get()
+//                            .load(imageURL).get();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//                WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+//                try {
+//                    wallpaperManager.setBitmap(result);
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                }
+
+                if(Build.VERSION.SDK_INT>=24){
+                    try{
+                        Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                        m.invoke(null);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+                Uri imageUri = Uri.fromFile(new File(dirPath+fileName));
+                Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.setDataAndType(imageUri, "image/*");
+                intent.putExtra("mimeType", "image/*");
+                getBaseContext().startActivity(Intent.createChooser(intent, "Set as:"));
+
+            }
+        });
+
+        shareBtn = dialog.findViewById(R.id.shareImage);
+
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(Build.VERSION.SDK_INT>=24){
+                    try{
+                        Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                        m.invoke(null);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+
+                Uri imageUri;
+                Intent intent;
+
+                imageUri = Uri.fromFile(new File(dirPath+fileName));
+
+                intent = new Intent(Intent.ACTION_SEND);
+//text
+                intent.putExtra(Intent.EXTRA_TEXT, "Download Free CB Editing Stocks from here\n https://play.google.com/store/apps/details?id="+getPackageName());
+//image
+                intent.putExtra(Intent.EXTRA_STREAM, imageUri);
+//type of things
+                intent.setType("*/*");
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//sending
+                startActivity(intent);
+            }
+        });
+
+        setAsAndShareLayout = dialog.findViewById(R.id.setAsAndShareLayout);
+
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.show();
+
         String photoFileName = downloadPath.substring(downloadPath.lastIndexOf('/') + 1);
         Uri uri = Uri.parse(downloadPath); // Path where you want to download file.
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);  // Tell on which network you want to download file.
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);  // This will show notification on top when downloading the file.
         request.setTitle("Downloading a file"); // Title for notification.
-        request.setVisibleInDownloadsUi(true);
+//        request.setVisibleInDownloadsUi(true);
         request.setDestinationInExternalPublicDir(folderName, photoFileName);  // Storage directory path
         downloadId = ((DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE)).enqueue(request); // This will start downloading
+
+        Timer myTimer = new Timer();
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                DownloadManager.Query q = new DownloadManager.Query();
+                q.setFilterById(downloadId);
+                Cursor cursor = ((DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE)).query(q);
+                cursor.moveToFirst();
+                int bytesDownloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                int bytesTotal = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                cursor.close();
+                final double dl_progress = (bytesDownloaded * 1f / bytesTotal) * 100;
+                runOnUiThread(new Runnable(){
+                    @Override
+                    public void run(){
+                        progressBar.setProgress((int) dl_progress);
+                    }
+                });
+            }
+        }, 0, 10);
+
+
     }
 
     @Override

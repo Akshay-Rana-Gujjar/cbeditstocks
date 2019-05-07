@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyRecycleriewHolder> {
     private String[] buttonNames;
@@ -47,7 +46,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyRecy
         myRecycleriewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, buttonNames[position], Toast.LENGTH_SHORT).show();
+
                 context.startActivity(new Intent(context, SecondActivity.class));
             }
         });
