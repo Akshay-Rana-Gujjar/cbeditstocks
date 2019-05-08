@@ -53,6 +53,15 @@ public class ThirdRecyclerAdapter extends RecyclerView.Adapter<ThirdRecyclerAdap
             }
         });
 
+        viewHolder.cardImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ForthActivity.class);
+                intent.putExtra("image_id", list.get(position).getImageId());
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override

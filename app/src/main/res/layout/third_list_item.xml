@@ -49,9 +49,10 @@
                     android:id="@+id/thirdViewFullButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
+                    android:layout_weight="0.3"
 
-
+                    android:textSize="13dp"
+                    android:textStyle="bold"
                     android:gravity="center"
                     android:textColor="@android:color/white"
                     android:background="@drawable/border_radius"
