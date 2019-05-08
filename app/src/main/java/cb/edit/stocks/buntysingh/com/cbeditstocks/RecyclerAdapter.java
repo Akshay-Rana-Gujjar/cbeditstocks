@@ -47,7 +47,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyRecy
             @Override
             public void onClick(View view) {
 
-                context.startActivity(new Intent(context, SecondActivity.class));
+                context.startActivity(new Intent(context, SecondActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
 

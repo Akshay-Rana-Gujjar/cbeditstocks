@@ -236,7 +236,7 @@ public class ForthActivity extends AppCompatActivity {
                             cancelBtn.setVisibility(View.GONE);
                             setAsAndShareLayout.setVisibility(View.VISIBLE);
                             dialog.setCancelable(true);
-                            downloadStatus.setText("Completed!");
+                            downloadStatus.setText(getString(R.string.completed));
 
 
                         }
@@ -289,38 +289,6 @@ public class ForthActivity extends AppCompatActivity {
         fileName = imageURL.substring(imageURL.lastIndexOf('/') + 1);
 
 
-//        AndroidNetworking.download(imageURL,dirPath,fileName)
-//
-//                .setTag("downloadTest")
-//                .setPriority(Priority.MEDIUM)
-//                .build()
-//                .setDownloadProgressListener(new DownloadProgressListener() {
-//
-//
-//
-//                    @Override
-//                    public void onProgress(long bytesDownloaded, long totalBytes) {
-//                        // do anything with progress
-//
-//                        Toast.makeText(ForthActivity.this, (100 * (bytesDownloaded/totalBytes))+"%", Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .startDownload(new DownloadListener() {
-//                    @Override
-//                    public void onDownloadComplete() {
-//                        // do anything after completion
-//                        Toast.makeText(ForthActivity.this, "Download Completed.", Toast.LENGTH_SHORT).show();
-//                    }
-//                    @Override
-//                    public void onError(ANError error) {
-//                        // handle error
-//                    }
-//
-//
-//                });
-
-
-
     }
 
     public Boolean verifyPermissions()
@@ -370,22 +338,6 @@ public class ForthActivity extends AppCompatActivity {
         setAsWallpaperBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                Bitmap result= null;
-//                try {
-//                    result = Picasso.get()
-//                            .load(imageURL).get();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//
-//                WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-//                try {
-//                    wallpaperManager.setBitmap(result);
-//                } catch (IOException ex) {
-//                    ex.printStackTrace();
-//                }
 
                 if(Build.VERSION.SDK_INT>=24){
                     try{
@@ -496,7 +448,6 @@ public class ForthActivity extends AppCompatActivity {
 
                     Toast.makeText(this, "Please grant storage permission to download images.", Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
 
         }
@@ -538,6 +489,8 @@ public class ForthActivity extends AppCompatActivity {
         void success();
         void failed();
     }
+
+
 
 
 }
