@@ -159,10 +159,8 @@
         android:layout_gravity="center"
 
         android:layout_margin="10dp"
-        android:background="#a42a2a"
         app:cardBackgroundColor="#a42a2a"
         app:cardCornerRadius="5dp"
-        app:cardElevation="0dp"
 
 
         >
@@ -170,12 +168,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="similar images"
+            android:text="@string/similar_images"
             android:gravity="center"
+
             android:textAllCaps="true"
             android:padding="10dp"
-            android:paddingStart="35dp"
-            android:paddingEnd="35dp"
+            android:lines="1"
+            android:singleLine="true"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
             android:textColor="@android:color/white"
             />
     </android.support.v7.widget.CardView>

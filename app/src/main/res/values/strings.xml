@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CB Edit Stocks</string>
+    <string name="completed">Completed!</string>
+    <string name="similar_images">similar images</string>
 </resources>

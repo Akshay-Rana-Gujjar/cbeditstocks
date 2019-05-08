@@ -15,7 +15,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class SecondActivity extends AppCompatActivity {
+public class SecondActivity extends OverrideActivity {
 
     ArrayList<cardData> arrayList;
     RecyclerView recyclerView;
