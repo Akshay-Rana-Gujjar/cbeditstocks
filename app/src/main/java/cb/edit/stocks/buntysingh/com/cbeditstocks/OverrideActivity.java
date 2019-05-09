@@ -1,5 +1,6 @@
 package cb.edit.stocks.buntysingh.com.cbeditstocks;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -7,28 +8,31 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+@SuppressLint("Registered")
 public class OverrideActivity extends AppCompatActivity {
 
-//    setStatusBarGradiant();
-
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setStatusBarGradiant(this);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_options, menu);
+        toolbar.inflateMenu(R.menu.menu_options);
         return true;
     }
 
@@ -52,6 +56,7 @@ public class OverrideActivity extends AppCompatActivity {
             window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
 //            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
             window.setBackgroundDrawable(background);
+
 
 //            actionBar.setTitle("OMG");
 

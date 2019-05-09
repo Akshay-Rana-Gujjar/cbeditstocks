@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import static cb.edit.stocks.buntysingh.com.cbeditstocks.SecondActivity.SERVER_IP;
 
-public class ThirdActivity extends AppCompatActivity {
+public class ThirdActivity extends OverrideActivity {
 
     RecyclerView recyclerView;
 

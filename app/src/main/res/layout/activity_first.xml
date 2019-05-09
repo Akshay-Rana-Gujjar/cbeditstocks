@@ -5,36 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gradient"
+    android:background="@android:color/white"
     tools:context=".FirstActivity">
 
-    <RelativeLayout
-
-        android:id="@+id/rel"
-        android:background="@drawable/gradient_actionbar"
-        android:layout_width="match_parent"
-        android:layout_gravity="fill_horizontal"
-        android:layout_height="80dp"
-        >
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentBottom="true"
-            app:title="@string/app_name"
-            android:elevation="5dp"
-            android:id="@+id/toolbar"
-
-            app:titleTextColor="#ffffff">
-
-        </android.support.v7.widget.Toolbar>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@drawable/toolbar_shadow"
-            android:layout_alignParentBottom="true"
-            />
-
-    </RelativeLayout>
+    <include layout="@layout/custom_toolbar" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

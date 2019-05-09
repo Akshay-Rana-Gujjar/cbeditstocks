@@ -51,7 +51,7 @@ import java.util.TimerTask;
 
 import static cb.edit.stocks.buntysingh.com.cbeditstocks.SecondActivity.SERVER_IP;
 
-public class ForthActivity extends AppCompatActivity {
+public class ForthActivity extends OverrideActivity {
 
     ImageView imageView;
 

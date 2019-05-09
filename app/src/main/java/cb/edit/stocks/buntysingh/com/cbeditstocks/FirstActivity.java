@@ -26,14 +26,15 @@ public class FirstActivity extends OverrideActivity {
             "New PNGs",
             "HD Backgrounds","HD PNGs"
     };
-    static Toolbar toolbar;
+//    static Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+//        toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         setStatusBarGradiant(this);
         recyclerView = findViewById(R.id.recyclerView);
@@ -50,13 +51,13 @@ public class FirstActivity extends OverrideActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        toolbar.inflateMenu(R.menu.menu_options);
-
-
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        toolbar.inflateMenu(R.menu.menu_options);
+//
+//
+//        return true;
+//    }
 
 
 }
