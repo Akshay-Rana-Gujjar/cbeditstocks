@@ -41,7 +41,7 @@ public class ThirdRecyclerAdapter extends RecyclerView.Adapter<ThirdRecyclerAdap
 
         final int position = i;
 
-        Picasso.get().load(list.get(i).getImageURL()).fit().centerCrop()
+        Picasso.with(context).load(list.get(i).getImageURL()).fit().centerCrop()
                 .placeholder(R.drawable.placeholder).into(viewHolder.cardImageView);
 
         viewHolder.viewFullImageButton.setOnClickListener(new View.OnClickListener() {

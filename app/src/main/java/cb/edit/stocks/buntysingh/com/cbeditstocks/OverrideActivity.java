@@ -2,6 +2,7 @@ package cb.edit.stocks.buntysingh.com.cbeditstocks;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,8 +39,9 @@ public class OverrideActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item1:
+            case R.id.contactDev:
                 // do what you want here
+                startActivity(new Intent(this, ContactDev.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

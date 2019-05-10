@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "145968409048",
+    "firebase_url": "https://inapp-messaging-5dd9b.firebaseio.com",
+    "project_id": "inapp-messaging-5dd9b",
+    "storage_bucket": "inapp-messaging-5dd9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145968409048:android:055446c6a38d8707",
+        "android_client_info": {
+          "package_name": "cb.edit.stocks.buntysingh.com.cbeditstocks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145968409048-fkf8030gallh0eo722mvtdfgo6g5vrb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdUv9Qg_GQDT-fM3bNUW6bEqtLimYvbAA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145968409048-fkf8030gallh0eo722mvtdfgo6g5vrb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

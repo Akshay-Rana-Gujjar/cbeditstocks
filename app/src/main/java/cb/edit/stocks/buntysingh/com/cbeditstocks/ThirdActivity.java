@@ -23,8 +23,8 @@ public class ThirdActivity extends OverrideActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
+        super.onCreate(savedInstanceState);
         recyclerView = findViewById(R.id.recyclerView3);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

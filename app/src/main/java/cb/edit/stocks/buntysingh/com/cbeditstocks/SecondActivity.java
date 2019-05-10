@@ -23,8 +23,8 @@ public class SecondActivity extends OverrideActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        super.onCreate(savedInstanceState);
 
         AndroidNetworking.initialize(this);
 

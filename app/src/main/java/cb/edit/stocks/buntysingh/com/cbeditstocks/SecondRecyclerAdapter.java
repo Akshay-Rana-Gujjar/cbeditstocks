@@ -44,7 +44,7 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
 
 //        viewHolder.imageView.setImageResource();
         final int position = i;
-        Picasso.get().load(arrayList.get(i).getImageURL()).placeholder(R.drawable.placeholder).resize(200, 200)
+        Picasso.with(context).load(arrayList.get(i).getImageURL()).placeholder(R.drawable.placeholder).resize(200, 200)
                 .centerCrop().into(viewHolder.imageView);
 
 

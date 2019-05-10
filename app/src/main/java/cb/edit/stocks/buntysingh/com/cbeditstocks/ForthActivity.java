@@ -81,8 +81,8 @@ public class ForthActivity extends OverrideActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forth);
+        super.onCreate(savedInstanceState);
 
         imageView = findViewById(R.id.largeImage);
 
@@ -118,8 +118,8 @@ public class ForthActivity extends OverrideActivity {
                         try {
 
                             imageURL = SERVER_IP+"/"+response.getJSONObject(0).getString("thumbnail");
-                            Picasso.get()
-                                .load(imageURL).fit().centerCrop()
+                            Picasso.with(getApplicationContext())
+                                .load(imageURL)
                                 .placeholder(R.drawable.placeholder)
                                 .into(imageView);
 
