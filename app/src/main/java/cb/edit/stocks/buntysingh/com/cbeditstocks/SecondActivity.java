@@ -1,9 +1,12 @@
 package cb.edit.stocks.buntysingh.com.cbeditstocks;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -15,7 +18,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class SecondActivity extends OverrideActivity {
+public class SecondActivity extends NavigationActivity {
 
     ArrayList<cardData> arrayList;
     RecyclerView recyclerView;
@@ -23,8 +26,15 @@ public class SecondActivity extends OverrideActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_second);
+
         super.onCreate(savedInstanceState);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        //inflate your activity layout here!
+        View contentView = inflater.inflate(R.layout.activity_second, null, false);
+
+        contentContainer.addView(contentView);
 
         AndroidNetworking.initialize(this);
 

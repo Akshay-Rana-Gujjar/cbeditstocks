@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rel"
-    android:background="@drawable/gradient_actionbar"
+    android:background="@drawable/gradient"
     android:layout_width="match_parent"
     android:layout_gravity="fill_horizontal"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="80dp"
     >
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         app:title="@string/app_name"
         android:elevation="5dp"
         android:id="@+id/toolbar"
-
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleTextColor="#ffffff">
 
     </android.support.v7.widget.Toolbar>

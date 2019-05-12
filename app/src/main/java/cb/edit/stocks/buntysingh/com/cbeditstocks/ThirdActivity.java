@@ -1,9 +1,12 @@
 package cb.edit.stocks.buntysingh.com.cbeditstocks;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -17,14 +20,23 @@ import java.util.ArrayList;
 
 import static cb.edit.stocks.buntysingh.com.cbeditstocks.SecondActivity.SERVER_IP;
 
-public class ThirdActivity extends OverrideActivity {
+public class ThirdActivity extends NavigationActivity {
 
     RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_third);
+
         super.onCreate(savedInstanceState);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        //inflate your activity layout here!
+        View contentView = inflater.inflate(R.layout.activity_third, null, false);
+
+        contentContainer.addView(contentView);
+
+
         recyclerView = findViewById(R.id.recyclerView3);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
