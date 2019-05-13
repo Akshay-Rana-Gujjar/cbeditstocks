@@ -37,7 +37,7 @@ static int statusBarHeight;
                 startActivity(i);
                 finish();
             }
-        }, 5000);
+        }, 500);
 
     }
 

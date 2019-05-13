@@ -57,7 +57,7 @@ public class ForthActivity extends OverrideActivity {
 
     TextView likes, downloads, downloadStatus;
 
-    String imageURL;
+    String imageURL,HDImageURL;
     String image_id;
 
     LikeButton like_button;
@@ -118,6 +118,7 @@ public class ForthActivity extends OverrideActivity {
                         try {
 
                             imageURL = SERVER_IP+"/"+response.getJSONObject(0).getString("thumbnail");
+                            HDImageURL = SERVER_IP+response.getJSONObject(0).getString("image_url");
                             Picasso.with(getApplicationContext())
                                 .load(imageURL)
                                 .placeholder(R.drawable.placeholder)
@@ -284,9 +285,9 @@ public class ForthActivity extends OverrideActivity {
 //        imageDownload(this, imageURL);
 
 
-        startDownload(imageURL , foldername);
+        startDownload(HDImageURL , foldername);
 
-        fileName = imageURL.substring(imageURL.lastIndexOf('/') + 1);
+        fileName = HDImageURL.substring(HDImageURL.lastIndexOf('/') + 1);
 
 
     }

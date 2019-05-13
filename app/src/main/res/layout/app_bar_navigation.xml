@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NavigationActivity">
+    tools:context=".NavigationActivity"
+
+    >
 
     <!--<android.support.design.widget.CoordinatorLayout-->
 
@@ -22,7 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/gradient_actionbar_dark"
-        android:theme="@style/AppTheme.AppBarOverlay"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+
+
         >
 
         <android.support.v7.widget.Toolbar
@@ -30,8 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/gradient"
-            android:layout_marginTop="25dip"
-            app:title="TEst"
+            android:layout_marginTop="28dip"
+
 
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 

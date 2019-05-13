@@ -9,7 +9,10 @@
     android:background="@android:color/white"
     tools:context=".SecondActivity">
 
-    <include layout="@layout/custom_toolbar" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="28dip"/>
+
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
