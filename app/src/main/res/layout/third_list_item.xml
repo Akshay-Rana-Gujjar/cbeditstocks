@@ -48,14 +48,14 @@
 
                 <Button
                     android:id="@+id/thirdViewFullButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="137dp"
+                    android:layout_height="27dp"
                     android:layout_weight="0.3"
-                    android:textSize="10dp"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
                     android:background="@drawable/border_radius"
-                    android:text="View Full Image" />
+                    android:gravity="center"
+                    android:text="View Full Image"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp" />
 
             </LinearLayout>
 

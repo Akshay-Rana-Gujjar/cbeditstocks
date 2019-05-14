@@ -12,24 +12,30 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_height="66dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/watch_icon"
+        android:layout_width="180dp"
+        android:layout_height="155dp"
         android:layout_gravity="center"
-        />
+        android:layout_marginTop="10dp"
+        android:src="@drawable/watch_icon" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerView"
-        android:scrollbars="vertical"
 
-        />
-
+        android:scrollbars="vertical" />
 
 
 </LinearLayout>
