@@ -13,6 +13,8 @@ import android.widget.TextView;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyRecycleriewHolder> {
     private String[] buttonNames;
     Context context;
+    int ADS = 0;
+    String ADS_ID ="ca-app-pub-5649687130219304~7144173565";
 
 
     public RecyclerAdapter (Context appContext,String[] buttonNamesArray){
@@ -54,6 +56,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyRecy
     @Override
     public int getItemCount() {
         return buttonNames.length;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
     }
 
     public class MyRecycleriewHolder extends RecyclerView.ViewHolder{
