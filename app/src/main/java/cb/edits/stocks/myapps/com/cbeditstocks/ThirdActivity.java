@@ -135,7 +135,7 @@ public class ThirdActivity extends NavigationActivity {
                         for(int i= listSize, index = 0 ; i < newListSize;i++, index++){
                             try {
 
-                                if(i%4==0 && i > 0){
+                                if(i%4==0){
                                     list.add(null);
                                 }
 
