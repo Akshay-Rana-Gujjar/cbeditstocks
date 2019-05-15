@@ -30,7 +30,7 @@ public class ThirdRecyclerAdapter extends RecyclerView.Adapter<ThirdRecyclerAdap
     @NonNull
     @Override
     public ThirdRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = null;
+        View view;
 
         if(viewType == ADS_TYPE){
             view = LayoutInflater.from(viewGroup.getContext())

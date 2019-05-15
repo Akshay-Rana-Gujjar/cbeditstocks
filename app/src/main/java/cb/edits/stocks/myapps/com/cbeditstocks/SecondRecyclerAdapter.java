@@ -19,6 +19,7 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
 
     private Context context;
     private ArrayList<SecondActivity.cardData> arrayList;
+    private int ADS_TYPE= 1,CONTENT_TYPE=0;
 
     public SecondRecyclerAdapter(Context c, ArrayList<SecondActivity.cardData> list){
 
@@ -30,9 +31,14 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        View view = LayoutInflater.from(viewGroup.getContext())
+        View view;
+        if(viewType == ADS_TYPE)
+        view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.banner_ads, viewGroup, false);
+        else
+        view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.second_list_item,viewGroup, false);
 
 
@@ -42,26 +48,38 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-//        viewHolder.imageView.setImageResource();
-        final int position = i;
-        Picasso.with(context).load(arrayList.get(i).getImageURL()).placeholder(R.drawable.placeholder).resize(200, 200)
-                .centerCrop().into(viewHolder.imageView);
+        if(arrayList.get(i) != null) {
+            final int position = i;
+            Picasso.with(context).load(arrayList.get(i).getImageURL()).placeholder(R.drawable.placeholder).resize(200, 200)
+                    .centerCrop().into(viewHolder.imageView);
 
 
-        viewHolder.textView.setText(arrayList.get(i).getImageCategory());
+            viewHolder.textView.setText(arrayList.get(i).getImageCategory());
 
-        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                Intent intent = new Intent(context, ThirdActivity.class);
-                intent.putExtra("category", arrayList.get(position).getImageCategory());
+                    Intent intent = new Intent(context, ThirdActivity.class);
+                    intent.putExtra("category", arrayList.get(position).getImageCategory());
 
-                context.startActivity(intent);
-            }
-        });
+                    context.startActivity(intent);
+                }
+            });
+        }
 
     }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        if(arrayList.get(position) == null){
+            return ADS_TYPE;
+        }
+
+        return CONTENT_TYPE;
+    }
+
 
     @Override
     public int getItemCount() {

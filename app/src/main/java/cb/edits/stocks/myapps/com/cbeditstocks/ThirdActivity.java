@@ -139,18 +139,13 @@ public class ThirdActivity extends NavigationActivity {
                                     list.add(null);
                                 }
 
-                                Log.v("#####################", i+"");
                                 list.add(new ThirdActivityData(
                                         SERVER_IP+"/"+response.getJSONObject(index).getString("image_url"),response.getJSONObject(index).getString("id")));
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-
                         }
-
-
 
                         if(adapter == null){
                             adapter = new ThirdRecyclerAdapter(ThirdActivity.this, list);
@@ -166,11 +161,6 @@ public class ThirdActivity extends NavigationActivity {
                         loading.setVisibility(View.GONE);
                         shouldLoad = true;
 
-
-
-
-
-
                     }
                     @Override
                     public void onError(ANError error) {
@@ -178,12 +168,5 @@ public class ThirdActivity extends NavigationActivity {
                     }
                 });
 
-
-
     }
-
-
-
-
-
 }

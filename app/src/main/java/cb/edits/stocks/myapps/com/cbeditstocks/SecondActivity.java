@@ -74,6 +74,9 @@ public class SecondActivity extends NavigationActivity {
                         for (int i =0; i < response.length();i++){
 
                             try {
+                                if(i%4==0 && i > 0){
+                                    arrayList.add(null);
+                                }
                                 arrayList.add(new cardData(response.getJSONObject(i).getString("category"), imageEndpoint+response.getJSONObject(i).getString("image")));
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -83,6 +86,19 @@ public class SecondActivity extends NavigationActivity {
                         recyclerView = findViewById(R.id.recyclerView2);
 
                         GridLayoutManager layoutManager = new GridLayoutManager(SecondActivity.this, 2);
+
+                        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                            @Override
+                            public int getSpanSize(int i) {
+
+                                if(arrayList.get(i)==null)
+                                    return 2;
+
+                                return 1;
+                            }
+                        });
+
+
                         recyclerView.setLayoutManager(layoutManager);
 
                         RecyclerView.Adapter adapter = new SecondRecyclerAdapter(SecondActivity.this, arrayList);

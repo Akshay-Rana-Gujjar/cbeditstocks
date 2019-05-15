@@ -161,6 +161,9 @@ public class ForthActivity extends OverrideActivity {
 
 
                             try {
+                                if(i%4==0 && i > 0){
+                                    list.add(null);
+                                }
                                 list.add(new ThirdActivity.ThirdActivityData(
                                         SERVER_IP+"/"+response.getJSONObject(i).getString("image_url"),response.getJSONObject(i).getString("id")));
                             } catch (JSONException e) {
