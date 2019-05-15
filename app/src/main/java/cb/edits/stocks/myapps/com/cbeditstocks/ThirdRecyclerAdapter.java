@@ -18,18 +18,30 @@ public class ThirdRecyclerAdapter extends RecyclerView.Adapter<ThirdRecyclerAdap
 
     private Context context;
     private ArrayList<ThirdActivity.ThirdActivityData> list;
+    private int ADS_TYPE= 1,CONTENT_TYPE=0;
+
 
     public ThirdRecyclerAdapter(Context context, ArrayList<ThirdActivity.ThirdActivityData> list) {
         this.context = context;
         this.list = list;
+
     }
 
     @NonNull
     @Override
-    public ThirdRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ThirdRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view = null;
 
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.third_list_item, viewGroup, false);
+        if(viewType == ADS_TYPE){
+            view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.banner_ads, viewGroup, false);
+
+        }else{
+
+            view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.third_list_item, viewGroup, false);
+        }
+
 
 
 
@@ -39,33 +51,51 @@ public class ThirdRecyclerAdapter extends RecyclerView.Adapter<ThirdRecyclerAdap
     @Override
     public void onBindViewHolder(@NonNull ThirdRecyclerAdapter.ViewHolder viewHolder, int i) {
 
-        final int position = i;
 
-        Picasso.with(context).load(list.get(i).getImageURL())
-                .placeholder(R.drawable.placeholder).into(viewHolder.cardImageView);
 
-        viewHolder.viewFullImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ForthActivity.class);
-                intent.putExtra("image_id", list.get(position).getImageId());
-                context.startActivity(intent);
-            }
-        });
+        if(list.get(i) != null){
 
-        viewHolder.cardImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ForthActivity.class);
-                intent.putExtra("image_id", list.get(position).getImageId());
-                context.startActivity(intent);
-            }
-        });
+            final int position = i;
 
+            Picasso.with(context).load(list.get(i).getImageURL())
+                    .placeholder(R.drawable.placeholder).into(viewHolder.cardImageView);
+
+            viewHolder.viewFullImageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ForthActivity.class);
+                    intent.putExtra("image_id", list.get(position).getImageId());
+                    context.startActivity(intent);
+                }
+            });
+
+            viewHolder.cardImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ForthActivity.class);
+                    intent.putExtra("image_id", list.get(position).getImageId());
+                    context.startActivity(intent);
+                }
+            });
+        }
+
+
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+
+        if(list.get(position) == null){
+            return ADS_TYPE;
+        }
+
+        return CONTENT_TYPE;
     }
 
     @Override
     public int getItemCount() {
+
 
         return list.size();
     }

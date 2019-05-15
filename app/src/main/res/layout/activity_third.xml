@@ -14,7 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="84dp" />
 
-
+<ProgressBar
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:id="@+id/loading"
+    />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,6 +35,10 @@
         android:id="@+id/recyclerView3"
         android:scrollbars="vertical"
         />
+
+
     </LinearLayout>
+
+
 
 </LinearLayout>

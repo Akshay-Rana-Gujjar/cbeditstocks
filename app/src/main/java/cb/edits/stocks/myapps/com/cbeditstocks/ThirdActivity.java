@@ -2,10 +2,14 @@ package cb.edits.stocks.myapps.com.cbeditstocks;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -22,6 +26,15 @@ import static cb.edits.stocks.myapps.com.cbeditstocks.SecondActivity.SERVER_IP;
 public class ThirdActivity extends NavigationActivity {
 
     RecyclerView recyclerView;
+    private boolean shouldLoad = true;
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
+    LinearLayoutManager layoutManager;
+    ProgressBar loading;
+    ArrayList<ThirdActivityData> list = new ArrayList<>();
+    int page =1;
+    String category;
+    String imageByCategoryURL;
+    RecyclerView.Adapter adapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,66 +50,48 @@ public class ThirdActivity extends NavigationActivity {
 
 
         recyclerView = findViewById(R.id.recyclerView3);
+        loading = findViewById(R.id.loading);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
 
         AndroidNetworking.initialize(this);
 
-        String category = getIntent().getStringExtra("category");
-        String imageByCategoryURL = SERVER_IP +"/api/v1/images.php";
+        category = getIntent().getStringExtra("category");
+        imageByCategoryURL = SERVER_IP +"/api/v1/images.php";
 
 
-        AndroidNetworking.get(imageByCategoryURL)
-        .addQueryParameter("category", category)
-                .setPriority(Priority.LOW)
-                .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        // do anything with response
-
-                        ArrayList<ThirdActivityData> list = new ArrayList<>();
+        updateList(page++);
 
 
-                        for(int i=0; i < response.length();i++){
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int lm, int dy) {
 
-                            try {
-                                list.add(new ThirdActivityData(
-                                        SERVER_IP+"/"+response.getJSONObject(i).getString("image_url"),response.getJSONObject(i).getString("id")));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                if(dy > 0) //check for scroll down
+                {
+                    visibleItemCount = layoutManager.getChildCount();
+                    totalItemCount = layoutManager.getItemCount();
+                    pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
+
+                    if (shouldLoad)
+                    {
+                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
+                        {
+                            loading.setVisibility(View.VISIBLE);
+                            shouldLoad = false;
+                            updateList(page++);
                         }
-
-
-                        RecyclerView.Adapter adapter = new ThirdRecyclerAdapter(ThirdActivity.this, list);
-
-                        recyclerView.setAdapter(adapter);
-
-
-
-
-
                     }
-                    @Override
-                    public void onError(ANError error) {
-                        // handle error
-                    }
-                });
-
-
-
-
-
-
-
-
-
+                }
+            }
+        });
 
     }
+
+
 
     public static class ThirdActivityData{
 
@@ -115,4 +110,80 @@ public class ThirdActivity extends NavigationActivity {
             return imageId;
         }
     }
+
+
+    void updateList(int pageNumber){
+
+//        Toast.makeText(this, "pageNumber = "+pageNumber, Toast.LENGTH_SHORT).show();
+
+        AndroidNetworking.get(imageByCategoryURL)
+                .addQueryParameter("category", category)
+                .addQueryParameter("page",pageNumber+"")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // do anything with response
+
+                        if(response.length() == 0)
+                        Toast.makeText(ThirdActivity.this, "No more Images!!", Toast.LENGTH_SHORT).show();
+
+                        int listSize = list.size();
+                        int newListSize= response.length()+listSize;
+
+                        for(int i= listSize, index = 0 ; i < newListSize;i++, index++){
+                            try {
+
+                                if(i%4==0 && i > 0){
+                                    list.add(null);
+                                }
+
+                                Log.v("#####################", i+"");
+                                list.add(new ThirdActivityData(
+                                        SERVER_IP+"/"+response.getJSONObject(index).getString("image_url"),response.getJSONObject(index).getString("id")));
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+
+
+
+                        if(adapter == null){
+                            adapter = new ThirdRecyclerAdapter(ThirdActivity.this, list);
+
+                            recyclerView.setAdapter(adapter);
+
+                        }
+
+                        else{
+                            adapter.notifyDataSetChanged();
+
+                        }
+                        loading.setVisibility(View.GONE);
+                        shouldLoad = true;
+
+
+
+
+
+
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                    }
+                });
+
+
+
+    }
+
+
+
+
+
 }
