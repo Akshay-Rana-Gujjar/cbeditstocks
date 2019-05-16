@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,6 +25,7 @@ public class NavigationActivity extends AppCompatActivity
 
     protected LinearLayout contentContainer;
     Toolbar toolbar;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class NavigationActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         contentContainer = findViewById(R.id.contentHere);
 
+
     }
 
 
@@ -65,7 +68,25 @@ public class NavigationActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if(isTaskRoot()){
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    return;
+                }
+
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce=false;
+                    }
+                }, 2000);
+            }else{
+                super.onBackPressed();
+            }
         }
     }
 
@@ -78,6 +99,12 @@ public class NavigationActivity extends AppCompatActivity
         Intent intent = null;
 
         switch(id){
+            case R.id.nav_home:
+
+                intent = new Intent(this, FirstActivity.class);
+
+
+                break;
             case R.id.nav_backgrounds:
 
                 intent = new Intent(this, SecondActivity.class);
@@ -108,7 +135,8 @@ public class NavigationActivity extends AppCompatActivity
 
             case R.id.nav_con_dev:
                 intent = new Intent(this, ContactDev.class);
-                break;
+                startActivity(intent);
+                return true;
 
             case R.id.nav_share:
 
@@ -131,8 +159,8 @@ public class NavigationActivity extends AppCompatActivity
             case R.id.nav_exit:
 
                 finish();
+                return true;
 
-                break;
 
         }
 
@@ -142,6 +170,10 @@ public class NavigationActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         startActivity(intent);
+        finish();
         return true;
     }
+
+
+
 }
