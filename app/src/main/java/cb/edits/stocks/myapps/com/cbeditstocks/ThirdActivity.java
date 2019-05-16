@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -21,7 +20,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-import static cb.edits.stocks.myapps.com.cbeditstocks.SecondActivity.SERVER_IP;
+import static cb.edits.stocks.myapps.com.cbeditstocks.OverrideApp.SERVER_IP;
 
 public class ThirdActivity extends NavigationActivity {
 

@@ -4,8 +4,25 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
-            android:id="@+id/con_dev"
+            android:id="@+id/nav_backgrounds"
+            android:icon="@drawable/ic_contact"
+            android:title="Backgrounds" />
+        <item
+            android:id="@+id/nav_new_pngs"
+            android:icon="@drawable/ic_contact"
+            android:title="New PNGs" />
+        <item
+            android:id="@+id/nav_hd_backgrounds"
+            android:icon="@drawable/ic_contact"
+            android:title="HD Backgrounds" />
+        <item
+            android:id="@+id/nav_hd_pngs"
+            android:icon="@drawable/ic_contact"
+            android:title="HD PNGs" />
+        <item
+            android:id="@+id/nav_con_dev"
             android:icon="@drawable/ic_contact"
             android:title="Contact Developer" />
 
@@ -17,6 +34,16 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
+
+            <item
+                android:id="@+id/nav_rate"
+                android:icon="@drawable/ic_star"
+                android:title="Rate App" />
+
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_exit"
+                android:title="Exit" />
 
         </menu>
     </item>

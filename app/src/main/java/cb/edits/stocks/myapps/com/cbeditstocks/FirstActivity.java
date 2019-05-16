@@ -1,14 +1,26 @@
 package cb.edits.stocks.myapps.com.cbeditstocks;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import static cb.edits.stocks.myapps.com.cbeditstocks.OverrideApp.SERVER_IP;
 
 public class FirstActivity extends NavigationActivity {
 
@@ -22,6 +34,9 @@ public class FirstActivity extends NavigationActivity {
             "HD PNGS"
     };
 
+    Dialog dialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        setContentView(R.layout.activity_first);
@@ -29,7 +44,6 @@ public class FirstActivity extends NavigationActivity {
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_first, null, false);
 
         contentContainer.addView(contentView);
@@ -37,18 +51,73 @@ public class FirstActivity extends NavigationActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
 
+
+
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new RecyclerAdapter(getApplicationContext(), buttonData);
         recyclerView.setAdapter(adapter);
+        recyclerView.setNestedScrollingEnabled(false);
+        AndroidNetworking.initialize(getApplicationContext());
 
-        new Thread(new Runnable() {
+        findViewById(R.id.inAppCardView).setOnClickListener(new View.OnClickListener() {
+
+
+
+
+
+
             @Override
-            public void run() {
-                Log.d("Instance ID", FirebaseInstanceId.getInstance().getId());
+            public void onClick(View v) {
+
+
+                dialog = new Dialog(FirstActivity.this);
+                ProgressBar progressBar = new ProgressBar(FirstActivity.this,null,android.R.attr.progressBarStyleLarge);
+                progressBar.setIndeterminate(true);
+                progressBar.setVisibility(View.VISIBLE);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(200,200);
+                params.addRule(RelativeLayout.CENTER_IN_PARENT);
+                dialog.addContentView(progressBar, params);
+                dialog.setCancelable(false);
+                dialog.show();
+
+                String inAppURL = SERVER_IP+"/inapppromotion";
+
+                AndroidNetworking.get(inAppURL)
+                        .setPriority(Priority.MEDIUM)
+                        .build()
+                        .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+
+                        String appPackageName=getPackageName();
+                        dialog.dismiss();;
+
+                        try {
+                            appPackageName = response.getJSONObject(0).getString("uri");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                        } catch (android.content.ActivityNotFoundException anfe) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
+                    }
+                });
+
+
+
             }
-        }).start();
+        });
 
     }
 

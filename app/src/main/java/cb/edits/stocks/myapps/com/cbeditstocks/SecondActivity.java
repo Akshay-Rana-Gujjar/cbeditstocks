@@ -18,11 +18,13 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+import static cb.edits.stocks.myapps.com.cbeditstocks.OverrideApp.SERVER_IP;
+
 public class SecondActivity extends NavigationActivity {
 
     ArrayList<cardData> arrayList;
     RecyclerView recyclerView;
-    public final static String SERVER_IP = "http://155.138.247.166";
+
     String imageEndpoint = SERVER_IP +"/img/stock/";
 
     @Override

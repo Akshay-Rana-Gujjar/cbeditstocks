@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -30,17 +31,9 @@ public class NavigationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
-
-        Toast.makeText(this, ""+getStatusBarHeight(), Toast.LENGTH_SHORT).show();
-
         Toolbar toolbar = findViewById(R.id.toolbar);
 
-//        toolbar.setLayoutParams(toolbarParams);
-
         setSupportActionBar(toolbar);
-
-//        toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,43 +49,19 @@ public class NavigationActivity extends AppCompatActivity
 
     }
 
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void setStatusBarGradiant(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
-            Drawable background = activity.getResources().getDrawable(R.drawable.gradient_actionbar_dark);
-//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-//            window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
-//            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.white));
-//            window.setBackgroundDrawable(background);
-
-
-
-
-
-//            actionBar.setTitle("OMG");
-
-//            LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-
         }
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -100,46 +69,68 @@ public class NavigationActivity extends AppCompatActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.navigation, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Intent intent = null;
 
         switch(id){
-            case R.id.con_dev:
-                startActivity(new Intent(this, ContactDev.class));
+            case R.id.nav_backgrounds:
+
+                intent = new Intent(this, SecondActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("buttonIndex",0);
+
+                break;
+
+            case R.id.nav_new_pngs:
+                intent = new Intent(this, SecondActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("buttonIndex",1);
+
+                break;
+
+            case R.id.nav_hd_backgrounds:
+                intent = new Intent(this, SecondActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("buttonIndex",2);
+
+                break;
+
+            case R.id.nav_hd_pngs:
+                intent = new Intent(this, SecondActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("buttonIndex",3);
+                break;
+
+            case R.id.nav_con_dev:
+                intent = new Intent(this, ContactDev.class);
                 break;
 
             case R.id.nav_share:
-                Intent intent;
+
                 intent = new Intent(Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_TEXT, "Download Free CB Editing Stocks from here\n https://play.google.com/store/apps/details?id="+getPackageName());
                 intent.setType("text/plain");
-                startActivity(intent);
 
+                break;
+
+            case R.id.nav_rate:
+                String appPackageName=getPackageName();
+
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+                break;
+
+            case R.id.nav_exit:
+
+                finish();
 
                 break;
 
@@ -149,6 +140,8 @@ public class NavigationActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+        startActivity(intent);
         return true;
     }
 }

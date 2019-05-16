@@ -17,22 +17,17 @@ import android.view.WindowManager;
 
 public class OverrideActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
-
-        setStatusBarGradiant(this);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         super.onCreate(savedInstanceState);
+        setStatusBarGradiant(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        toolbar.inflateMenu(R.menu.menu_options);
+
         return true;
     }
 
@@ -55,14 +50,7 @@ public class OverrideActivity extends AppCompatActivity {
             Drawable background = activity.getResources().getDrawable(R.drawable.gradient_actionbar_dark);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
-//            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
             window.setBackgroundDrawable(background);
-
-
-//            actionBar.setTitle("OMG");
-
-//            LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-
         }
     }
 }

@@ -48,7 +48,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static cb.edits.stocks.myapps.com.cbeditstocks.SecondActivity.SERVER_IP;
+import static cb.edits.stocks.myapps.com.cbeditstocks.OverrideApp.SERVER_IP;
 
 
 public class ForthActivity extends OverrideActivity {
@@ -130,7 +130,7 @@ public class ForthActivity extends OverrideActivity {
 
                             downloadCount = response.getJSONObject(0).getString("downloads_format");
                             downloads.setText(String.format("%s Downloads", downloadCount));
-                            Toast.makeText(ForthActivity.this, "img_id "+image_id, Toast.LENGTH_SHORT).show();
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
