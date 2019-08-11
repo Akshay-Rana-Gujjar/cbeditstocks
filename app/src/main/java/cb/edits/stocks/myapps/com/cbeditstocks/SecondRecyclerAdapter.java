@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,13 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
     private Context context;
     private ArrayList<SecondActivity.cardData> arrayList;
     private int ADS_TYPE= 1,CONTENT_TYPE=0;
+    String TAG = "+SecondRecyclerAdapter+";
 
     public SecondRecyclerAdapter(Context c, ArrayList<SecondActivity.cardData> list){
 
         context = c;
         arrayList = list;
+        Log.d(TAG,"In the constructor");
 
     }
 
@@ -32,7 +35,7 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-
+        Log.d(TAG,"In the onCreateViewHolder");
         View view;
         if(viewType == ADS_TYPE)
         view = LayoutInflater.from(viewGroup.getContext())
@@ -50,7 +53,7 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
 
         if(arrayList.get(i) != null) {
             final int position = i;
-            Picasso.with(context).load(arrayList.get(i).getImageURL()).placeholder(R.drawable.placeholder).resize(200, 200)
+            Picasso.with(context).load(arrayList.get(i).getImageURL()).placeholder(R.drawable.placeholder).resize(200, 200).error(R.drawable.android_logo)
                     .centerCrop().into(viewHolder.imageView);
 
 
@@ -72,6 +75,9 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
 
     @Override
     public int getItemViewType(int position) {
+
+        Log.d(TAG,"In the getItemViewType");
+
 
         if(arrayList.get(position) == null){
             return ADS_TYPE;

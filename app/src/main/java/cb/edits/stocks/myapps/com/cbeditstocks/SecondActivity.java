@@ -4,8 +4,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.ANRequest;
@@ -54,6 +56,7 @@ public class SecondActivity extends NavigationActivity {
 
             case 0:
             default:
+                Log.d("SecondActivity","switch default");
                 break;
             case 1:
                 getRequestBuilder.addQueryParameter("t","pngcategory"); // t is mandatory you can change pngcategory to load different category
@@ -66,7 +69,7 @@ public class SecondActivity extends NavigationActivity {
         }
 
         getRequestBuilder
-                .setPriority(Priority.LOW)
+                .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONArray(new JSONArrayRequestListener() {
                     @Override
@@ -111,6 +114,10 @@ public class SecondActivity extends NavigationActivity {
                     @Override
                     public void onError(ANError error) {
                         // handle error
+                        Toast.makeText(getApplicationContext(), "Error "+error.getErrorBody(), Toast.LENGTH_SHORT).show();
+                        Log.d("\n\nERROR321",""+error.getErrorDetail());
+                        Log.d("\n\nERROR321",""+error.getErrorCode());
+                        Log.d("\n\nERROR321",""+error.getResponse());
                     }
                 });
 
