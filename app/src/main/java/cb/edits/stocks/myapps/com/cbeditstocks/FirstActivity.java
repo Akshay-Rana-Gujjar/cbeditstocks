@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -21,6 +22,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import static cb.edits.stocks.myapps.com.cbeditstocks.OverrideApp.SERVER_IP;
+
+import com.facebook.ads.*;
+
 
 public class FirstActivity extends NavigationActivity {
 
@@ -35,6 +39,9 @@ public class FirstActivity extends NavigationActivity {
     };
 
     Dialog dialog;
+    private AdView adView;
+    private AdView adView2;
+
 
 
     @Override
@@ -49,6 +56,36 @@ public class FirstActivity extends NavigationActivity {
         contentContainer.addView(contentView);
 
         recyclerView = findViewById(R.id.recyclerView);
+
+        LinearLayout ads1Container = findViewById(R.id.ads1container);
+        String banner_ad_placement_id_1 = getString(R.string.banner_1_placement_id_first_activity);
+
+        // check if you set banner ad placement id in string.xml (in values folder)
+        if(!banner_ad_placement_id_1.equalsIgnoreCase("null")){
+            adView = new AdView(this, banner_ad_placement_id_1, AdSize.BANNER_HEIGHT_50);
+
+            // Add the ad view to your activity layout
+            ads1Container.addView(adView);
+
+            // Request an ad
+            adView.loadAd();
+        }
+
+
+        LinearLayout ads2Container = findViewById(R.id.ads2container);
+        String banner_ad_placement_id_2 = getString(R.string.banner_2_placement_id_first_activity);
+
+        // check if you set banner ad placement id in string.xml (in values folder)
+        if(!banner_ad_placement_id_2.equalsIgnoreCase("null")){
+            adView2 = new AdView(this, banner_ad_placement_id_2, AdSize.BANNER_HEIGHT_50);
+
+            // Add the ad view to your activity layout
+            ads2Container.addView(adView2);
+
+            // Request an ad
+            adView2.loadAd();
+        }
+
 
 
 

@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.ads.*;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,9 +39,28 @@ public class SecondRecyclerAdapter extends RecyclerView.Adapter<SecondRecyclerAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Log.d(TAG,"In the onCreateViewHolder");
         View view;
-        if(viewType == ADS_TYPE)
-        view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.banner_ads, viewGroup, false);
+        if(viewType == ADS_TYPE){
+            view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.banner_ads, viewGroup, false);
+
+            String banner_ad_placement_id = context.getString(R.string.banner_1_placement_id_second_activity);
+            // check if banner ad placement id is set or not
+            if(!banner_ad_placement_id.equalsIgnoreCase("null")){
+                LinearLayout adContainer = view.findViewById(R.id.adContainerSecondActivity);
+                AdView adView;
+                adView = new AdView(context, banner_ad_placement_id, AdSize.BANNER_HEIGHT_50);
+
+                adContainer.removeAllViews();
+
+                // Add the ad view to your activity layout
+                adContainer.addView(adView);
+
+                // Request an ad
+                adView.loadAd();
+            }
+
+        }
+
         else
         view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.second_list_item,viewGroup, false);

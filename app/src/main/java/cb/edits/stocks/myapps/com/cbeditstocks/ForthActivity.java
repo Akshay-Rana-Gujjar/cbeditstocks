@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import com.facebook.ads.*;
 import static cb.edits.stocks.myapps.com.cbeditstocks.OverrideApp.SERVER_IP;
 
 
@@ -74,7 +74,7 @@ public class ForthActivity extends OverrideActivity {
     ImageView shareBtn;
     LinearLayout setAsAndShareLayout;
     String fileName, dirPath;
-    Dialog dialog;
+    Dialog dialog;AdView adView_download;
 
 
 
@@ -105,6 +105,24 @@ public class ForthActivity extends OverrideActivity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setNestedScrollingEnabled(false);
+
+        String banner_ad_placement_id = getString(R.string.banner_1_placement_id_forth_activity);
+
+        if(!banner_ad_placement_id.equalsIgnoreCase("null")){
+
+            AdView adView = new AdView(this, banner_ad_placement_id, AdSize.BANNER_HEIGHT_50);
+
+            // Find the Ad Container
+            LinearLayout adContainer = (LinearLayout) findViewById(R.id.bannerAdsForthActivity);
+
+            // Add the ad view to your activity layout
+            adContainer.addView(adView);
+
+            // Request an ad
+            adView.loadAd();
+        }
+
+
 
         AndroidNetworking.get(apiURL)
                 .addQueryParameter("img_id", image_id)
@@ -322,6 +340,21 @@ public class ForthActivity extends OverrideActivity {
         dialog.setContentView(R.layout.dailog);
 
         final ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
+
+        String banner_ad_download = getString(R.string.banner_2_placement_id_forth_activity_download_popup);
+
+        if(banner_ad_download.equalsIgnoreCase("null")){
+            adView_download = new AdView(this, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
+
+            // Find the Ad Container
+            LinearLayout adContainer = (LinearLayout) dialog.findViewById(R.id.bannerAdDownloadContainer);
+
+            // Add the ad view to your activity layout
+            adContainer.addView(adView_download);
+        }
+
+
+
         dialog.setCancelable(false);
         // Set dialog title
         dialog.setTitle("Downloading...");
@@ -400,6 +433,12 @@ public class ForthActivity extends OverrideActivity {
 
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.show();
+        if(banner_ad_download.equalsIgnoreCase("null")){
+            // Request an ad
+            adView_download.loadAd();
+        }
+
+
 
         String photoFileName = downloadPath.substring(downloadPath.lastIndexOf('/') + 1);
         Uri uri = Uri.parse(downloadPath); // Path where you want to download file.

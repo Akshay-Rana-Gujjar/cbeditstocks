@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,6 +38,22 @@ public class ThirdRecyclerAdapter extends RecyclerView.Adapter<ThirdRecyclerAdap
         if(viewType == ADS_TYPE){
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.banner_ads, viewGroup, false);
+
+            String banner_ad_placement_id = context.getString(R.string.banner_1_placement_id_second_activity);
+            // check if banner ad placement id is set or not
+            if(!banner_ad_placement_id.equalsIgnoreCase("null")){
+                LinearLayout adContainer = view.findViewById(R.id.adContainerSecondActivity);
+                AdView adView;
+                adView = new AdView(context, banner_ad_placement_id, AdSize.BANNER_HEIGHT_50);
+
+                adContainer.removeAllViews();
+
+                // Add the ad view to your activity layout
+                adContainer.addView(adView);
+
+                // Request an ad
+                adView.loadAd();
+            }
 
         }else{
 

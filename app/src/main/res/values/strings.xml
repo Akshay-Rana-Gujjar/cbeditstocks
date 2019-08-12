@@ -11,4 +11,18 @@
     <string name="action_settings">Settings</string>
     <string name="default_font" translatable="false">serif</string>
 
+    <!--===============================-->
+    <!--| ADD YOUR PLACEMENT IDS HERE |-->
+    <!--===============================-->
+
+    <string name="banner_1_placement_id_first_activity">null</string>
+    <string name="banner_2_placement_id_first_activity">null</string>
+
+    <string name="banner_1_placement_id_second_activity">null</string>
+
+    <string name="banner_1_placement_id_third_activity">null</string>
+
+    <string name="banner_1_placement_id_forth_activity">null</string>
+    <string name="banner_2_placement_id_forth_activity_download_popup">null</string>
+
 </resources>
