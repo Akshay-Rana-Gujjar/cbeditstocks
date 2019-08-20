@@ -343,7 +343,7 @@ public class ForthActivity extends OverrideActivity {
 
         String banner_ad_download = getString(R.string.banner_2_placement_id_forth_activity_download_popup);
 
-        if(banner_ad_download.equalsIgnoreCase("null")){
+        if(!banner_ad_download.equalsIgnoreCase("null")){
             adView_download = new AdView(this, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
 
             // Find the Ad Container
@@ -433,7 +433,7 @@ public class ForthActivity extends OverrideActivity {
 
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.show();
-        if(banner_ad_download.equalsIgnoreCase("null")){
+        if(!banner_ad_download.equalsIgnoreCase("null")){
             // Request an ad
             adView_download.loadAd();
         }
