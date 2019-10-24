@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Food Backgrounds"
+        android:textColor="#0056b3"
+        android:textStyle="bold"
+        android:id="@+id/bigCaption"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:id="@+id/imageSmallCaption"
+        android:text="CATEGORY WISE BEST Food Backgrounds STOCKS "
+
+        android:textSize="10dp"
+        />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="250dp"
+        android:layout_height="120dp"
+        app:cardCornerRadius="10dp"
+
+
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:id="@+id/horizontalImageView"
+
+            />
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

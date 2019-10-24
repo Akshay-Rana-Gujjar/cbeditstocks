@@ -6,11 +6,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "cb.edit.stocks.buntysingh.com.cbeditstocks"
+        applicationId "com.buntysinghediting.Cb_edit_stocks"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 12
+        versionName "3.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -41,6 +41,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:17.2.0'
 
     implementation 'com.facebook.android:audience-network-sdk:5.+'
+
+    implementation 'com.synnapps:carouselview:0.1.5'
+    implementation 'org.jetbrains:annotations-java5:15.0'
 
 
 }

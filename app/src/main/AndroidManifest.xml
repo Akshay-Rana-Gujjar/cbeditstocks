@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="cb.edits.stocks.myapps.com.cbeditstocks">
+    package="com.buntysinghediting.Cb_edit_stocks">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="cb.edits.stocks.myapps.com.cbeditstocks.OverrideApp"
+        android:name=".OverrideApp"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +18,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <activity android:name=".InstaGridView"></activity>
+        <activity android:name=".FirstActivityNew" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+
         <activity
-            android:name="cb.edits.stocks.myapps.com.cbeditstocks.SplashScreen"
+            android:name=".SplashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -31,14 +33,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name="cb.edits.stocks.myapps.com.cbeditstocks.FirstActivity" />
-        <activity android:name="cb.edits.stocks.myapps.com.cbeditstocks.SecondActivity" />
-        <activity android:name="cb.edits.stocks.myapps.com.cbeditstocks.ThirdActivity" />
-        <activity android:name="cb.edits.stocks.myapps.com.cbeditstocks.ForthActivity" />
-        <activity android:name="cb.edits.stocks.myapps.com.cbeditstocks.ContactDev" />
-
+        <activity android:name=".FirstActivity" />
+        <activity android:name=".SecondActivity" />
+        <activity android:name=".ThirdActivity" />
+        <activity android:name=".ForthActivity" />
+        <activity android:name=".ContactDev" />
     </application>
 
 </manifest>

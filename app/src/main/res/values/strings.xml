@@ -15,14 +15,19 @@
     <!--| ADD YOUR PLACEMENT IDS HERE |-->
     <!--===============================-->
 
-    <string name="banner_1_placement_id_first_activity">null</string>
-    <string name="banner_2_placement_id_first_activity">null</string>
+    <string name="is_development">true</string>
 
-    <string name="banner_1_placement_id_second_activity">null</string>
+    <string name="banner_1_placement_id_first_activity">504998483593203_505565496869835</string>
+    <string name="banner_2_placement_id_first_activity">504998483593203_505565496869835</string>
 
-    <string name="banner_1_placement_id_third_activity">null</string>
+    <string name="banner_1_placement_id_second_activity">504998483593203_505578170201901</string>
 
-    <string name="banner_1_placement_id_forth_activity">null</string>
-    <string name="banner_2_placement_id_forth_activity_download_popup">null</string>
+    <string name="banner_1_placement_id_third_activity">504998483593203_505578170201901</string>
+
+    <string name="banner_1_placement_id_forth_activity">504998483593203_505565496869835</string>
+    <string name="banner_2_placement_id_forth_activity_download_popup">504998483593203_505578170201901</string>
+
+
+    <string name="publisher_id">TVA Media</string>
 
 </resources>
